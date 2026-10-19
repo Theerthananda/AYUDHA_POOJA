@@ -1,5 +1,5 @@
 
-name: Deploy Ayudha Pooja Website
+name: Deploy AYUDHA POOJA to GitHub Pages
 
 on:
   push:
@@ -19,12 +19,14 @@ jobs:
   deploy:
     environment:
       name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -33,16 +35,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build website
+      - name: Build React project
         run: npm run build
 
-      - name: Setup Pages
+      - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload website
+      - name: Upload build files
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
       - name: Deploy website
+        id: deployment
         uses: actions/deploy-pages@v4
