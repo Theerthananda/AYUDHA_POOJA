@@ -19,12 +19,42 @@ export function Navigation() {
     return () => window.removeEventListener('keydown', onKey)
   }, [])
   const close = () => setOpen(false)
-  return <header className={`nav-shell ${scrolled ? 'scrolled' : ''}`}>
-    <a className="brand" href="#home" onClick={close} aria-label="Sri Chamundeshwari home"><span className="brand-mark">✦</span><span>Shri Chamundeshwari<small>AYUDHA POOJA · 2026</small></span></a>
-    <nav id="main-menu" className={open ? 'nav-links open' : 'nav-links'} aria-label="Main navigation">
-      {links.map(([label, href]) => <a key={href} href={href} onClick={close}>{label}</a>)}
-      <a className="nav-blessing" href="#blessings" onClick={close}><Sparkles size={15} /> Receive blessings</a>
-    </nav>
-    <button className="menu-button" aria-expanded={open} aria-controls="main-menu" onClick={() => setOpen(!open)} aria-label={open ? 'Close menu' : 'Open menu'}>{open ? <X /> : <Menu />}</button>
-  </header>
+  return (
+    <header className={`nav-shell ${scrolled ? "scrolled" : ""}`}>
+      <a
+        className="brand"
+        href="#home"
+        onClick={close}
+        aria-label="Sri Chamundeshwari home"
+      >
+        <span className="brand-mark">✦</span>
+        <span>
+          AYUDHA POOJA · 2026<small></small>
+        </span>
+      </a>
+      <nav
+        id="main-menu"
+        className={open ? "nav-links open" : "nav-links"}
+        aria-label="Main navigation"
+      >
+        {links.map(([label, href]) => (
+          <a key={href} href={href} onClick={close}>
+            {label}
+          </a>
+        ))}
+        <a className="nav-blessing" href="#blessings" onClick={close}>
+          <Sparkles size={15} /> Receive blessings
+        </a>
+      </nav>
+      <button
+        className="menu-button"
+        aria-expanded={open}
+        aria-controls="main-menu"
+        onClick={() => setOpen(!open)}
+        aria-label={open ? "Close menu" : "Open menu"}
+      >
+        {open ? <X /> : <Menu />}
+      </button>
+    </header>
+  );
 }
